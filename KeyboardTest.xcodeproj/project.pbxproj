@@ -1,0 +1,441 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		603F4389171301850089E008 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 603F4388171301850089E008 /* UIKit.framework */; };
+		603F438B171301850089E008 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 603F438A171301850089E008 /* Foundation.framework */; };
+		603F438D171301850089E008 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 603F438C171301850089E008 /* CoreGraphics.framework */; };
+		603F4393171301850089E008 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 603F4391171301850089E008 /* InfoPlist.strings */; };
+		603F4395171301850089E008 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 603F4394171301850089E008 /* main.m */; };
+		603F4399171301850089E008 /* ORAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 603F4398171301850089E008 /* ORAppDelegate.m */; };
+		603F439B171301850089E008 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 603F439A171301850089E008 /* Default.png */; };
+		603F439D171301850089E008 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 603F439C171301850089E008 /* Default@2x.png */; };
+		603F439F171301850089E008 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 603F439E171301850089E008 /* Default-568h@2x.png */; };
+		603F43A2171301850089E008 /* ORViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603F43A1171301850089E008 /* ORViewController.m */; };
+		603F43A5171301850089E008 /* ORViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 603F43A3171301850089E008 /* ORViewController.xib */; };
+		603F43AD171301850089E008 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 603F43AC171301850089E008 /* SenTestingKit.framework */; };
+		603F43AE171301850089E008 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 603F4388171301850089E008 /* UIKit.framework */; };
+		603F43AF171301850089E008 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 603F438A171301850089E008 /* Foundation.framework */; };
+		603F43C5171301B10089E008 /* ORKeyboardReactingApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 603F43C4171301B10089E008 /* ORKeyboardReactingApplication.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		603F43B0171301850089E008 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 603F437D171301840089E008 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 603F4384171301840089E008;
+			remoteInfo = KeyboardTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		603F4385171301850089E008 /* KeyboardTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		603F4388171301850089E008 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		603F438A171301850089E008 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		603F438C171301850089E008 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		603F4390171301850089E008 /* KeyboardTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyboardTest-Info.plist"; sourceTree = "<group>"; };
+		603F4392171301850089E008 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		603F4394171301850089E008 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		603F4396171301850089E008 /* KeyboardTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KeyboardTest-Prefix.pch"; sourceTree = "<group>"; };
+		603F4397171301850089E008 /* ORAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORAppDelegate.h; sourceTree = "<group>"; };
+		603F4398171301850089E008 /* ORAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORAppDelegate.m; sourceTree = "<group>"; };
+		603F439A171301850089E008 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		603F439C171301850089E008 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		603F439E171301850089E008 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		603F43A0171301850089E008 /* ORViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORViewController.h; sourceTree = "<group>"; };
+		603F43A1171301850089E008 /* ORViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORViewController.m; sourceTree = "<group>"; };
+		603F43A4171301850089E008 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ORViewController.xib; sourceTree = "<group>"; };
+		603F43AB171301850089E008 /* KeyboardTestTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardTestTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		603F43AC171301850089E008 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		603F43C3171301B10089E008 /* ORKeyboardReactingApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ORKeyboardReactingApplication.h; path = ../ORKeyboardReactingApplication.h; sourceTree = "<group>"; };
+		603F43C4171301B10089E008 /* ORKeyboardReactingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORKeyboardReactingApplication.m; path = ../ORKeyboardReactingApplication.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		603F4382171301840089E008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				603F4389171301850089E008 /* UIKit.framework in Frameworks */,
+				603F438B171301850089E008 /* Foundation.framework in Frameworks */,
+				603F438D171301850089E008 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		603F43A7171301850089E008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				603F43AD171301850089E008 /* SenTestingKit.framework in Frameworks */,
+				603F43AE171301850089E008 /* UIKit.framework in Frameworks */,
+				603F43AF171301850089E008 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		603F437C171301840089E008 = {
+			isa = PBXGroup;
+			children = (
+				603F438E171301850089E008 /* KeyboardTest */,
+				603F4387171301850089E008 /* Frameworks */,
+				603F4386171301850089E008 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		603F4386171301850089E008 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				603F4385171301850089E008 /* KeyboardTest.app */,
+				603F43AB171301850089E008 /* KeyboardTestTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		603F4387171301850089E008 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				603F4388171301850089E008 /* UIKit.framework */,
+				603F438A171301850089E008 /* Foundation.framework */,
+				603F438C171301850089E008 /* CoreGraphics.framework */,
+				603F43AC171301850089E008 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		603F438E171301850089E008 /* KeyboardTest */ = {
+			isa = PBXGroup;
+			children = (
+				603F4397171301850089E008 /* ORAppDelegate.h */,
+				603F4398171301850089E008 /* ORAppDelegate.m */,
+				603F43A0171301850089E008 /* ORViewController.h */,
+				603F43A1171301850089E008 /* ORViewController.m */,
+				603F43A3171301850089E008 /* ORViewController.xib */,
+				603F438F171301850089E008 /* Supporting Files */,
+				603F43C3171301B10089E008 /* ORKeyboardReactingApplication.h */,
+				603F43C4171301B10089E008 /* ORKeyboardReactingApplication.m */,
+			);
+			path = KeyboardTest;
+			sourceTree = "<group>";
+		};
+		603F438F171301850089E008 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				603F4390171301850089E008 /* KeyboardTest-Info.plist */,
+				603F4391171301850089E008 /* InfoPlist.strings */,
+				603F4394171301850089E008 /* main.m */,
+				603F4396171301850089E008 /* KeyboardTest-Prefix.pch */,
+				603F439A171301850089E008 /* Default.png */,
+				603F439C171301850089E008 /* Default@2x.png */,
+				603F439E171301850089E008 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		603F4384171301840089E008 /* KeyboardTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 603F43BD171301850089E008 /* Build configuration list for PBXNativeTarget "KeyboardTest" */;
+			buildPhases = (
+				603F4381171301840089E008 /* Sources */,
+				603F4382171301840089E008 /* Frameworks */,
+				603F4383171301840089E008 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeyboardTest;
+			productName = KeyboardTest;
+			productReference = 603F4385171301850089E008 /* KeyboardTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		603F43AA171301850089E008 /* KeyboardTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 603F43C0171301850089E008 /* Build configuration list for PBXNativeTarget "KeyboardTestTests" */;
+			buildPhases = (
+				603F43A6171301850089E008 /* Sources */,
+				603F43A7171301850089E008 /* Frameworks */,
+				603F43A8171301850089E008 /* Resources */,
+				603F43A9171301850089E008 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				603F43B1171301850089E008 /* PBXTargetDependency */,
+			);
+			name = KeyboardTestTests;
+			productName = KeyboardTestTests;
+			productReference = 603F43AB171301850089E008 /* KeyboardTestTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		603F437D171301840089E008 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = OR;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Art.sy Inc";
+			};
+			buildConfigurationList = 603F4380171301840089E008 /* Build configuration list for PBXProject "KeyboardTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 603F437C171301840089E008;
+			productRefGroup = 603F4386171301850089E008 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				603F4384171301840089E008 /* KeyboardTest */,
+				603F43AA171301850089E008 /* KeyboardTestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		603F4383171301840089E008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				603F4393171301850089E008 /* InfoPlist.strings in Resources */,
+				603F439B171301850089E008 /* Default.png in Resources */,
+				603F439D171301850089E008 /* Default@2x.png in Resources */,
+				603F439F171301850089E008 /* Default-568h@2x.png in Resources */,
+				603F43A5171301850089E008 /* ORViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		603F43A8171301850089E008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		603F43A9171301850089E008 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		603F4381171301840089E008 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				603F4395171301850089E008 /* main.m in Sources */,
+				603F4399171301850089E008 /* ORAppDelegate.m in Sources */,
+				603F43A2171301850089E008 /* ORViewController.m in Sources */,
+				603F43C5171301B10089E008 /* ORKeyboardReactingApplication.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		603F43A6171301850089E008 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		603F43B1171301850089E008 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 603F4384171301840089E008 /* KeyboardTest */;
+			targetProxy = 603F43B0171301850089E008 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		603F4391171301850089E008 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				603F4392171301850089E008 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		603F43A3171301850089E008 /* ORViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				603F43A4171301850089E008 /* en */,
+			);
+			name = ORViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		603F43BB171301850089E008 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		603F43BC171301850089E008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		603F43BE171301850089E008 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KeyboardTest/KeyboardTest-Prefix.pch";
+				INFOPLIST_FILE = "KeyboardTest/KeyboardTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		603F43BF171301850089E008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KeyboardTest/KeyboardTest-Prefix.pch";
+				INFOPLIST_FILE = "KeyboardTest/KeyboardTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		603F43C1171301850089E008 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KeyboardTest.app/KeyboardTest";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KeyboardTest/KeyboardTest-Prefix.pch";
+				INFOPLIST_FILE = "KeyboardTestTests/KeyboardTestTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		603F43C2171301850089E008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KeyboardTest.app/KeyboardTest";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KeyboardTest/KeyboardTest-Prefix.pch";
+				INFOPLIST_FILE = "KeyboardTestTests/KeyboardTestTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		603F4380171301840089E008 /* Build configuration list for PBXProject "KeyboardTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				603F43BB171301850089E008 /* Debug */,
+				603F43BC171301850089E008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		603F43BD171301850089E008 /* Build configuration list for PBXNativeTarget "KeyboardTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				603F43BE171301850089E008 /* Debug */,
+				603F43BF171301850089E008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		603F43C0171301850089E008 /* Build configuration list for PBXNativeTarget "KeyboardTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				603F43C1171301850089E008 /* Debug */,
+				603F43C2171301850089E008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 603F437D171301840089E008 /* Project object */;
+}
