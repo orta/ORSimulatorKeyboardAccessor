@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Art.sy Inc. All rights reserved.
 //
 //  Based on work found here: http://nacho4d-nacho4d.blogspot.co.uk/2012/01/catching-keyboard-events-in-ios.html
+//                  and here: https://gist.github.com/nacho4d/1592813
 
 #import "ORKeyboardReactingApplication.h"
 
@@ -21,10 +22,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 
 #define GSEVENT_TYPE 2
 #define GSEVENT_FLAGS 12
-#define GSEVENTKEY_KEYCODE_CHARIGNORINGMOD 15
 #define GSEVENT_TYPE_KEYDOWN 10
-
-NSString *const UIEventGSEventKeyUpNotification = @"UIEventGSEventKeyUpNotification";
 
 - (id)init {
     self = [super init];
@@ -40,10 +38,13 @@ NSString *const UIEventGSEventKeyUpNotification = @"UIEventGSEventKeyUpNotificat
 
 - (void)sendEvent:(UIEvent *)event {
     [super sendEvent:event];
+
 #ifdef DEBUG
     if ([event respondsToSelector:@selector(_gsEvent)]) {
 
-        // Hardware Key events are of kind UIInternalEvent which are a wrapper of GSEventRef which is wrapper of GSEventRecord
+        // Hardware Key events are of kind UIInternalEvent which are a
+        // wrapper of GSEventRef which is wrapper of GSEventRecord
+        
         int *eventMemory = [event _gsEvent];
         if (eventMemory) {
 
@@ -54,19 +55,20 @@ NSString *const UIEventGSEventKeyUpNotification = @"UIEventGSEventKeyUpNotificat
                 // Get flags from GSEvent
                 int eventFlags = eventMemory[GSEVENT_FLAGS];
                 
-                // Get keycode from GSEventKey
+                // Get keycode from the GSEventKey struct
                 int tmp = eventMemory[15];
-                
-                // Cast to silent warning
+
+                // Cast to silence warnings
                 UniChar *keycode = (UniChar *)&tmp;
 
-                BOOL shiftIsHeld = eventFlags&(1<<18);
+                BOOL shiftIsHeld = (eventFlags&(1<<17))? YES : NO;
+//                BOOL commandIsHeld = (eventFlags&(1<<20))? YES : NO;
+
                 NSString *character = [self stringFromKeycode:keycode];
-                
                 if (shiftIsHeld) {
                     character = [character uppercaseString];
                 }
-                
+
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     for (NSString *key in _callbackBlocks.allKeys) {
                         if ([key isEqualToString:character]) {
@@ -84,6 +86,9 @@ NSString *const UIEventGSEventKeyUpNotification = @"UIEventGSEventKeyUpNotificat
 
 - (NSString *)stringFromKeycode:(UniChar *)code {
     NSInteger keyCode = code[0];
+
+    // Just to speed up the loading WRT the amount of ifs.
+    
     if (keyCode < 29) {
         if (keyCode== 4) return @"a";
         if (keyCode== 5) return @"b";

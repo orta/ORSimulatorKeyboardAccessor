@@ -21,5 +21,20 @@ to the main method to be this class.
  }
 ```
 
-At the moment there is no attempt done to ensure there is no conflicts with UITextFields.
-This will change in the future.
+Then in your view controllers:
+
+```objc
+  [ORKeyboardReactingApplication registerForCallbackOnKeyDown:@"a" :^{
+      NSLog(@"Hey there 'a' - how're you doing?");
+  }];
+```
+
+####Todo list
+Would love PRs with these features
+
+* Ensure no clashes with UITextfield 
+* Find a way to do Key Up
+* Allow the API to have repeating vs non-repeating calls
+* Listen for navigation controller changes and remove any methods related
+* Using shift = capital version
+* Support for command / alt

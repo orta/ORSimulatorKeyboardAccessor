@@ -21,8 +21,8 @@
     }];
 
 
-    [ORKeyboardReactingApplication registerForCallbackOnKeyDown:@"2" :^{
-        NSLog(@"Oh HI THERRE G");
+    [ORKeyboardReactingApplication registerForCallbackOnKeyDown:@"A" :^{
+        NSLog(@"Oh HI THER CAPS A");
     }];
 }
 
