@@ -1,18 +1,21 @@
 //
 //  ORKeyboardReactingApplication.m
-//  KeyboardTest
 //
 //  Created by orta therox on 08/04/2013.
-//  Copyright (c) 2013 Art.sy Inc. All rights reserved.
+//  Copyright (c) 2013 Orta Therox. All rights reserved.
 //
-//  Based on work found here: http://nacho4d-nacho4d.blogspot.co.uk/2012/01/catching-keyboard-events-in-ios.html
-//                  and here: https://gist.github.com/nacho4d/1592813
+//  Based on work here: http://nacho4d-nacho4d.blogspot.co.uk/2012/01/catching-keyboard-events-in-ios.html
+//            and here: https://gist.github.com/nacho4d/1592813
+//
+// There's a lot of useful info here: https://github.com/kennytm/iphone-private-frameworks/blob/master/GraphicsServices/GSEvent.h
 
 #import "ORKeyboardReactingApplication.h"
 
+#ifdef DEBUG
 @interface UIEvent (private)
 - (int *)_gsEvent;
 @end
+#endif
 
 static ORKeyboardReactingApplication *sharedKeyboardController;
 
@@ -51,8 +54,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
             int eventType = eventMemory[GSEVENT_TYPE];
             if (eventType == GSEVENT_TYPE_KEYDOWN) {
 
-                // Since the event type is key up we can assume is a GSEventKey struct
-                // Get flags from GSEvent
+                // Since the event type is key down we can assume GSEventKey is a struct
                 int eventFlags = eventMemory[GSEVENT_FLAGS];
                 
                 // Get keycode from the GSEventKey struct
@@ -69,15 +71,14 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
                     character = [character uppercaseString];
                 }
 
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    for (NSString *key in _callbackBlocks.allKeys) {
-                        if ([key isEqualToString:character]) {
+                for (NSString *key in _callbackBlocks.allKeys) {
+                    if ([key isEqualToString:character]) {
+                        dispatch_async(dispatch_get_main_queue(), ^(void) {
                             void(^callback)(void) = _callbackBlocks[key];
                             callback();
-                        }
+                        });
                     }
-                });
-
+                }
             }
         }
     }
