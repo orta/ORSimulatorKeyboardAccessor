@@ -48,6 +48,8 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
         // Hardware Key events are of kind UIInternalEvent which are a
         // wrapper of GSEventRef which is wrapper of GSEventRecord
 
+        // If you're writing text into a textfield, we shouldn't try run blocks.
+      
         UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
         UIView   *firstResponder = [keyWindow performSelector:@selector(firstResponder)];
         if (firstResponder) return;
