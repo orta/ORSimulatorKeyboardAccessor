@@ -26,6 +26,10 @@
     }];
 }
 
+- (IBAction)dismissKeyboard:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -33,3 +37,4 @@
 }
 
 @end
+

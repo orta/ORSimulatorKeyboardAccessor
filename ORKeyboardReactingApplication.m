@@ -11,7 +11,7 @@
 
 #import "ORKeyboardReactingApplication.h"
 
-#ifdef DEBUG
+#if (TARGET_IPHONE_SIMULATOR)
 @interface UIEvent (private)
 - (int *)_gsEvent;
 @end
@@ -31,23 +31,27 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
     self = [super init];
     if (!self) return nil;
 
-#ifdef DEBUG
+#if (TARGET_IPHONE_SIMULATOR)
     sharedKeyboardController = self;
     _callbackBlocks = [NSMutableDictionary dictionary];
 #endif
-    
+
     return self;
 }
 
 - (void)sendEvent:(UIEvent *)event {
     [super sendEvent:event];
 
-#ifdef DEBUG
+#if (TARGET_IPHONE_SIMULATOR)
     if ([event respondsToSelector:@selector(_gsEvent)]) {
 
         // Hardware Key events are of kind UIInternalEvent which are a
         // wrapper of GSEventRef which is wrapper of GSEventRecord
-        
+
+        UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+        UIView   *firstResponder = [keyWindow performSelector:@selector(firstResponder)];
+        if (firstResponder) return;
+
         int *eventMemory = [event _gsEvent];
         if (eventMemory) {
 
@@ -56,7 +60,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 
                 // Since the event type is key down we can assume GSEventKey is a struct
                 int eventFlags = eventMemory[GSEVENT_FLAGS];
-                
+
                 // Get keycode from the GSEventKey struct
                 int tmp = eventMemory[15];
 
@@ -64,7 +68,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
                 UniChar *keycode = (UniChar *)&tmp;
 
                 BOOL shiftIsHeld = (eventFlags&(1<<17))? YES : NO;
-//                BOOL commandIsHeld = (eventFlags&(1<<20))? YES : NO;
+                //                BOOL commandIsHeld = (eventFlags&(1<<20))? YES : NO;
 
                 NSString *character = [self stringFromKeycode:keycode];
                 if (shiftIsHeld) {
@@ -89,7 +93,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
     NSInteger keyCode = code[0];
 
     // Just to speed up the loading WRT the amount of ifs.
-    
+
     if (keyCode < 29) {
         if (keyCode== 4) return @"a";
         if (keyCode== 5) return @"b";
@@ -136,12 +140,15 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
         if (keyCode==42) return ORDeleteKey;
         if (keyCode==40) return OREnterKey;
         if (keyCode==41) return OREscapeKey;
-        
+        if (keyCode==54) return ORCommaKey;
+
+
         if (keyCode==82) return ORUpKey;
         if (keyCode==81) return ORDownKey;
         if (keyCode==80) return ORLeftKey;
         if (keyCode==79) return ORRightKey;
     }
+
     return nil;
 }
 
@@ -166,3 +173,4 @@ NSString *ORDeleteKey = @"DELETE";
 NSString *ORSpaceKey = @"SPACE";
 NSString *ORTabKey = @"TAB";
 NSString *ORTildeKey = @"TILDE";
+NSString *ORCommaKey = @"COMMA";

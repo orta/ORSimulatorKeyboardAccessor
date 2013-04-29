@@ -32,7 +32,6 @@ And you're done.
 ####Todo list
 Would love PRs with these features
 
-* Ensure no clashes with UITextfield 
 * Find a way to do key up instead of on key down.
 * Allow the API to have repeating vs non-repeating calls
 * Listen for navigation controller changes and remove any methods related

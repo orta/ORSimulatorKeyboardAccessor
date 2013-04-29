@@ -60,3 +60,4 @@ extern NSString *ORDeleteKey;
 extern NSString *ORSpaceKey;
 extern NSString *ORTabKey;
 extern NSString *ORTildeKey;
+extern NSString *ORCommaKey;
