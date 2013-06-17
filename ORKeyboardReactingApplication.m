@@ -4,28 +4,56 @@
 //  Created by orta therox on 08/04/2013.
 //  Copyright (c) 2013 Orta Therox. All rights reserved.
 //
-//  Based on work here: http://nacho4d-nacho4d.blogspot.co.uk/2012/01/catching-keyboard-events-in-ios.html
-//            and here: https://gist.github.com/nacho4d/1592813
+//  iOS 6 parts based on work here: http://nacho4d-nacho4d.blogspot.co.uk/2012/01/catching-keyboard-events-in-ios.html
+//  and here: https://gist.github.com/nacho4d/1592813
 //
 // There's a lot of useful info here: https://github.com/kennytm/iphone-private-frameworks/blob/master/GraphicsServices/GSEvent.h
 
 #import "ORKeyboardReactingApplication.h"
+#import <objc/message.h>
 
 #if (TARGET_IPHONE_SIMULATOR)
 @interface UIEvent (private)
 - (int *)_gsEvent;
 @end
+
+NSUInteger ORKeyDeviceSystemMajorVersion();
+NSUInteger ORKeyDeviceSystemMajorVersion() {
+    static NSUInteger _deviceSystemMajorVersion = -1;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _deviceSystemMajorVersion = [[[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."] objectAtIndex:0] intValue];
+    });
+    return _deviceSystemMajorVersion;
+}
+
+
+// We need this to build up to the keyboard event
+@interface UIInternalEvent : UIEvent @end
+@interface UIPhysicalButtonsEvent : UIInternalEvent @end
+
+@interface UIPhysicalKeyboardEvent : UIPhysicalButtonsEvent
+@property(retain, nonatomic) NSString *_unmodifiedInput;
+@end
+
+@interface UIApplication ()
+- (void)handleKeyUIEvent:(UIPhysicalKeyboardEvent *)event;
+@end
+
 #endif
 
 static ORKeyboardReactingApplication *sharedKeyboardController;
 
-@implementation ORKeyboardReactingApplication {
-    NSMutableDictionary *_callbackBlocks;
-}
+@interface ORKeyboardReactingApplication()
 
-#define GSEVENT_TYPE 2
-#define GSEVENT_FLAGS 12
-#define GSEVENT_TYPE_KEYDOWN 10
+@property (strong) NSMutableDictionary *callbackBlocks;
+@property (strong) NSMapTable *callbackTargets;
+@property (strong) NSMutableDictionary *callbackActions;
+
+@end
+
+@implementation ORKeyboardReactingApplication
+
 
 - (id)init {
     self = [super init];
@@ -34,64 +62,96 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 #if (TARGET_IPHONE_SIMULATOR)
     sharedKeyboardController = self;
     _callbackBlocks = [NSMutableDictionary dictionary];
+    _callbackTargets = [NSMapTable strongToWeakObjectsMapTable];
+    _callbackActions = [NSMutableDictionary dictionary];
 #endif
 
     return self;
 }
 
+// Wow this is easy in the latest iOS
+#if (TARGET_IPHONE_SIMULATOR)
+- (void)handleKeyUIEvent:(UIPhysicalKeyboardEvent *)event {
+    [super handleKeyUIEvent:event];
+    
+    if ([self isEditingText]) return;
+    [self _lookupReactionForString:event._unmodifiedInput];
+}
+#endif
+
+#define GSEVENT_TYPE 2
+#define GSEVENT_FLAGS 12
+#define GSEVENT_TYPE_KEYDOWN 10
+
+// Support the older versions
 - (void)sendEvent:(UIEvent *)event {
     [super sendEvent:event];
 
 #if (TARGET_IPHONE_SIMULATOR)
+    if (ORKeyDeviceSystemMajorVersion() < 7) return;
+    if ([self isEditingText]) return;
+
     if ([event respondsToSelector:@selector(_gsEvent)]) {
 
         // Hardware Key events are of kind UIInternalEvent which are a
         // wrapper of GSEventRef which is wrapper of GSEventRecord
-
-        // If you're writing text into a textfield, we shouldn't try run blocks.
-      
-        UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
-        UIView   *firstResponder = [keyWindow performSelector:@selector(firstResponder)];
-        if (firstResponder) return;
 
         int *eventMemory = [event _gsEvent];
         if (eventMemory) {
 
             int eventType = eventMemory[GSEVENT_TYPE];
             if (eventType == GSEVENT_TYPE_KEYDOWN) {
-
-                // Since the event type is key down we can assume GSEventKey is a struct
-                int eventFlags = eventMemory[GSEVENT_FLAGS];
-
+                
                 // Get keycode from the GSEventKey struct
                 int tmp = eventMemory[15];
 
                 // Cast to silence warnings
                 UniChar *keycode = (UniChar *)&tmp;
-
-                BOOL shiftIsHeld = (eventFlags&(1<<17))? YES : NO;
-                //                BOOL commandIsHeld = (eventFlags&(1<<20))? YES : NO;
-
-                NSString *character = [self stringFromKeycode:keycode];
-                if (shiftIsHeld) {
-                    character = [character uppercaseString];
-                }
-
-                for (NSString *key in _callbackBlocks.allKeys) {
-                    if ([key isEqualToString:character]) {
-                        dispatch_async(dispatch_get_main_queue(), ^(void) {
-                            void(^callback)(void) = _callbackBlocks[key];
-                            callback();
-                        });
-                    }
-                }
+                NSString *character = [self _stringFromKeycode:keycode];
+                [self _lookupReactionForString:character];
             }
         }
     }
 #endif
 }
 
-- (NSString *)stringFromKeycode:(UniChar *)code {
+- (void)_lookupReactionForString:(NSString *)keycode {
+
+    for (NSString *key in self.callbackBlocks.allKeys) {
+        if ([key isEqualToString:keycode]) {
+            void(^callback)(void) = self.callbackBlocks[key];
+
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                callback();
+            });
+        }
+    }
+
+    for (NSString *key in self.callbackActions) {
+        if ([key isEqualToString:keycode]) {
+            NSObject *target = [self.callbackTargets objectForKey:key];
+            NSString *selectorString = self.callbackActions[keycode];
+            SEL selector = NSSelectorFromString(selectorString);
+
+            if (selector && target && [target respondsToSelector:selector]) {
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    objc_msgSend(target, selector);
+                });
+            }
+        }
+    }
+}
+
+- (BOOL)isEditingText {
+    // If you're writing text into a textfield, we shouldn't try run commands.
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    UIView   *firstResponder = [keyWindow performSelector:@selector(firstResponder)];
+    if (firstResponder) return YES;
+
+    return NO;
+}
+
+- (NSString *)_stringFromKeycode:(UniChar *)code {
     NSInteger keyCode = code[0];
 
     // Just to speed up the loading WRT the amount of ifs.
@@ -160,7 +220,16 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 
 - (void)registerForCallbackOnKeyDown:(NSString *)key :(void(^)(void))callback {
     void (^ myCopy)() = [callback copy];
-    [_callbackBlocks setObject:myCopy forKey:key];
+    [self.callbackBlocks setObject:myCopy forKey:key];
+}
+
++ (void)registerForSelectorOnKeyDown:(NSString *)key target:(id)target action:(SEL)selector {
+    [sharedKeyboardController registerForSelectorOnKeyDown:key target:target action:selector];
+}
+
+- (void)registerForSelectorOnKeyDown:(NSString *)key target:(id)target action:(SEL)selector {
+    [self.callbackActions setObject:NSStringFromSelector(selector) forKey:key];
+    [self.callbackTargets setObject:target forKey:key];
 }
 
 @end
@@ -171,8 +240,8 @@ NSString *ORLeftKey = @"LEFT";
 NSString *ORRightKey = @"RIGHT";
 NSString *OREnterKey = @"RETURN";
 NSString *OREscapeKey = @"ESCAPE";
-NSString *ORDeleteKey = @"DELETE";
-NSString *ORSpaceKey = @"SPACE";
-NSString *ORTabKey = @"TAB";
-NSString *ORTildeKey = @"TILDE";
-NSString *ORCommaKey = @"COMMA";
+NSString *ORDeleteKey = @"";
+NSString *ORSpaceKey = @" ";
+NSString *ORTabKey = @"	";
+NSString *ORTildeKey = @"`";
+NSString *ORCommaKey = @",";

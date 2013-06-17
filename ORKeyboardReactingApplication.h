@@ -22,11 +22,11 @@
  <pre>
 
  int main(int argc, char *argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv,
-            NSStringFromClass([ORKeyboardReactingApplication class]),
-            NSStringFromClass([ORAppDelegate class]));
-    }
+ @autoreleasepool {
+ return UIApplicationMain(argc, argv,
+ NSStringFromClass([ORKeyboardReactingApplication class]),
+ NSStringFromClass([ORAppDelegate class]));
+ }
  }
 
  </pre>
@@ -45,6 +45,9 @@
 /// the key. Caveat: Does not support capitals.
 
 + (void)registerForCallbackOnKeyDown:(NSString *)key :(void(^)(void))callback;
+
+/// Register to get a target-action based callback from a key
++ (void)registerForSelectorOnKeyDown:(NSString *)key target:(id)target action:(SEL)selector;
 
 @end
 
