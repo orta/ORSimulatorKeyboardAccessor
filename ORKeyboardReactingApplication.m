@@ -17,6 +17,8 @@
 - (int *)_gsEvent;
 @end
 
+// Apple sanctioned way to get a version number of the OS
+
 NSUInteger ORKeyDeviceSystemMajorVersion();
 NSUInteger ORKeyDeviceSystemMajorVersion() {
     static NSUInteger _deviceSystemMajorVersion = -1;
@@ -26,7 +28,6 @@ NSUInteger ORKeyDeviceSystemMajorVersion() {
     });
     return _deviceSystemMajorVersion;
 }
-
 
 // We need this to build up to the keyboard event
 @interface UIInternalEvent : UIEvent @end
@@ -47,6 +48,8 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 @interface ORKeyboardReactingApplication()
 
 @property (strong) NSMutableDictionary *callbackBlocks;
+
+// With Target - Action we shouldn't retain the target .: NSMapTable
 @property (strong) NSMapTable *callbackTargets;
 @property (strong) NSMutableDictionary *callbackActions;
 
@@ -54,6 +57,8 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 
 @implementation ORKeyboardReactingApplication
 
+// If it's not a simulator this class will do nothing
+#if (TARGET_IPHONE_SIMULATOR)
 
 - (id)init {
     self = [super init];
@@ -70,14 +75,12 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 }
 
 // Wow this is easy in the latest iOS
-#if (TARGET_IPHONE_SIMULATOR)
 - (void)handleKeyUIEvent:(UIPhysicalKeyboardEvent *)event {
     [super handleKeyUIEvent:event];
     
     if ([self isEditingText]) return;
-    [self _lookupReactionForString:event._unmodifiedInput];
+    [self _invokeReactionForString:event._unmodifiedInput];
 }
-#endif
 
 #define GSEVENT_TYPE 2
 #define GSEVENT_FLAGS 12
@@ -87,8 +90,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 - (void)sendEvent:(UIEvent *)event {
     [super sendEvent:event];
 
-#if (TARGET_IPHONE_SIMULATOR)
-    if (ORKeyDeviceSystemMajorVersion() < 7) return;
+    if (ORKeyDeviceSystemMajorVersion() > 6) return;
     if ([self isEditingText]) return;
 
     if ([event respondsToSelector:@selector(_gsEvent)]) {
@@ -108,14 +110,13 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
                 // Cast to silence warnings
                 UniChar *keycode = (UniChar *)&tmp;
                 NSString *character = [self _stringFromKeycode:keycode];
-                [self _lookupReactionForString:character];
+                [self _invokeReactionForString:character];
             }
         }
     }
-#endif
 }
 
-- (void)_lookupReactionForString:(NSString *)keycode {
+- (void)_invokeReactionForString:(NSString *)keycode {
 
     for (NSString *key in self.callbackBlocks.allKeys) {
         if ([key isEqualToString:keycode]) {
@@ -232,6 +233,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
     [self.callbackTargets setObject:target forKey:key];
 }
 
+#endif
 @end
 
 NSString *ORUpKey = @"UP";

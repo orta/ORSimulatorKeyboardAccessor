@@ -46,7 +46,8 @@
 
 + (void)registerForCallbackOnKeyDown:(NSString *)key :(void(^)(void))callback;
 
-/// Register to get a target-action based callback from a key
+/// Register to get a target-action based callback from a key.
+/// Will weakly reference the target.
 + (void)registerForSelectorOnKeyDown:(NSString *)key target:(id)target action:(SEL)selector;
 
 @end
