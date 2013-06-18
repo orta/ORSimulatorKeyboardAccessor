@@ -58,8 +58,6 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 @implementation ORKeyboardReactingApplication
 
 // If it's not a simulator this class will do nothing
-#if (TARGET_IPHONE_SIMULATOR)
-
 - (id)init {
     self = [super init];
     if (!self) return nil;
@@ -74,8 +72,10 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
     return self;
 }
 
+#if (TARGET_IPHONE_SIMULATOR)
 // Wow this is easy in the latest iOS
 - (void)handleKeyUIEvent:(UIPhysicalKeyboardEvent *)event {
+
     [super handleKeyUIEvent:event];
     
     if ([self isEditingText]) return;
@@ -115,6 +115,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
         }
     }
 }
+#endif
 
 - (void)_invokeReactionForString:(NSString *)keycode {
 
@@ -142,6 +143,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
         }
     }
 }
+
 
 - (BOOL)isEditingText {
     // If you're writing text into a textfield, we shouldn't try run commands.
@@ -233,7 +235,6 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
     [self.callbackTargets setObject:target forKey:key];
 }
 
-#endif
 @end
 
 NSString *ORUpKey = @"UP";
