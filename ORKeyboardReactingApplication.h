@@ -7,26 +7,22 @@
 #import <UIKit/UIKit.h>
 
 /**
- @class
- ORKeyboardReactingApplication Main Class.
 
- @abstract
- Set this to be the default UIApplication class in your main.m - when you use
- your app within the simulator you will have the ability to perform actions
- when you use the keyboard for input.
+ @abstract Set this to be the default UIApplication class in your main.m - when you use
+   your app within the simulator you will have the ability to perform actions
+   when you use the keyboard for input.
 
- @discussion
- To use a custom UIApplication subclass you need to change the third argument
- to the main method to be this class.
+ @discussion To use a custom UIApplication subclass you need to change the third argument
+   to the main method to be this class.
 
  <pre>
 
  int main(int argc, char *argv[]) {
- @autoreleasepool {
- return UIApplicationMain(argc, argv,
- NSStringFromClass([ORKeyboardReactingApplication class]),
- NSStringFromClass([ORAppDelegate class]));
- }
+   @autoreleasepool {
+     return UIApplicationMain(argc, argv,
+                              NSStringFromClass([ORKeyboardReactingApplication class]),
+                              NSStringFromClass([ORAppDelegate class]));
+   }
  }
 
  </pre>
@@ -48,6 +44,7 @@
 
 /// Register to get a target-action based callback from a key.
 /// Will weakly reference the target.
+
 + (void)registerForSelectorOnKeyDown:(NSString *)key target:(id)target action:(SEL)selector;
 
 @end

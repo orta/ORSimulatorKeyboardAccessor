@@ -146,11 +146,13 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 
 
 - (BOOL)isEditingText {
+#if (TARGET_IPHONE_SIMULATOR)
     // If you're writing text into a textfield, we shouldn't try run commands.
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     UIView   *firstResponder = [keyWindow performSelector:@selector(firstResponder)];
     if (firstResponder) return YES;
-
+#endif
+    
     return NO;
 }
 

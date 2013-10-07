@@ -1,5 +1,8 @@
 #ORKeyboardReactingApplication
 
+#### Version 0.5.1
+* Hides private API for release builds
+
 #### Version 0.5
 * Support for iOS > 6
 * Added function for target-action
