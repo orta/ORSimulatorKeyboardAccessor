@@ -1,5 +1,8 @@
 #ORKeyboardReactingApplication
 
+#### Version 0.5.2
+* Support for using return key
+
 #### Version 0.5.1
 * Hides private API for release builds
 
