@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ORKeyboardReactingApplication"
-  s.version      = "0.5.2"
+  s.version      = "0.5.3"
   s.summary      = "Use Keyboard Bindings with the iOS Simulator."
   s.description  = "Provides a great API to block based keyboard actions."
   s.homepage     = "https://github.com/orta/ORSimulatorKeyboardAccessor"
