@@ -137,7 +137,7 @@ static ORKeyboardReactingApplication *sharedKeyboardController;
 
             if (selector && target && [target respondsToSelector:selector]) {
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    objc_msgSend(target, selector);
+                     ((id (*)(id, SEL)) objc_msgSend)(target, selector);
                 });
             }
         }
