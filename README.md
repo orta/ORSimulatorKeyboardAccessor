@@ -1,4 +1,4 @@
-##ORSimulatorKeyboardAccessor
+## ORSimulatorKeyboardAccessor
 
 Use your keyboard in the iOS simulator with a pleasant API. 
 
@@ -33,7 +33,7 @@ Then in your application:
 
 And you're done.
 
-####Todo list
+#### Todo list
 Would love PRs with these features
 
 * Find a way to do key up instead of on key down.
